@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspect-main-collecting-processing-api
+  labels:
+    app: inspect-main-collecting-processing-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: inspect-main-collecting-processing-api
+  template:
+    metadata:
+      labels:
+        app: inspect-main-collecting-processing-api
+      name: inspect-main-collecting-processing-api
+    spec:
+      containers:
+      - name: inspect-main-collecting-processing-api
+        image: inspect-main-collecting-processing-api
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9002
+        env:
+        - name: MONGO_DB_HOST
+          value: mongodb-service
+        - name: CRED_USER
+          value: admin
+        - name: CRED_PASS
+          value: "123"
+        - name: CORS_PATTERN
+          value: http://localhost:8080
+        - name: PROFILE
+          value: prod
+      imagePullSecrets:
+        - name: myregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inspect-main-collecting-processing-api-service
+spec:
+  selector:
+    app: inspect-main-collecting-processing-api
+  ports:
+    - name: inspect-main-collecting-processing-api-service
+      protocol: TCP
+      port: 80 #port of the service
+      targetPort: 9002 #port of the pod
+
+
+
+
+

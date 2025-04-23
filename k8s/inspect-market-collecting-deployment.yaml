@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspect-market-collecting
+  labels:
+    app: inspect-market-collecting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inspect-market-collecting
+  template:
+    metadata:
+      labels:
+        app: inspect-market-collecting
+      name: inspect-market-collecting
+    spec:
+      containers:
+      - name: inspect-market-collecting
+        image: inspect-market-collecting
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9005
+        env:
+        - name: MONGO_DB_HOST
+          value: mongodb-service
+        - name: POLYGON_API_TOKEN
+          value: RuChOoZkbs9cilTaHt9Z6i9ajSoqL4Ge
+        - name: PROFILE
+          value: prod
+      imagePullSecrets:
+        - name: myregistrykey
+---

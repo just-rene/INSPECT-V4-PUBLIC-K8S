@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspect-frontend
+  labels:
+    app: inspect-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inspect-frontend
+  template:
+    metadata:
+      labels:
+        app: inspect-frontend
+      name: inspect-frontend
+    spec:
+      containers:
+      - name: inspect-frontend
+        image: inspect-frontend
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9000
+        env:
+        - name: MONGO_DB_HOST
+          value: mongodb-service
+        - name: CRED_USER
+          value: admin
+        - name: CRED_PASS
+          value: "123"
+        - name: CORS_PATTERN
+          value: http://localhost:8080
+        - name: PROFILE
+          value: prod
+      imagePullSecrets:
+        - name: myregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inspect-frontend-service
+spec:
+  selector:
+    app: inspect-frontend
+  ports:
+    - name: inspect-frontend-service
+      protocol: TCP
+      port: 80 #port of the service
+      targetPort: 9000 #port of the pod
+
+
+
+
+

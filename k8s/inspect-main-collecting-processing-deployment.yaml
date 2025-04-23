@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspect-main-collecting-processing
+  labels:
+    app: inspect-main-collecting-processing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inspect-main-collecting-processing
+  template:
+    metadata:
+      labels:
+        app: inspect-main-collecting-processing
+      name: inspect-main-collecting-processing
+    spec:
+      containers:
+      - name: inspect-main-collecting-processing
+        image: inspect-main-collecting-processing
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9001
+        env:
+        - name: MONGO_DB_HOST
+          value: mongodb-service
+        - name: CRED_USER
+          value: admin
+        - name: CRED_PASS
+          value: "123"
+        - name: CORS_PATTERN
+          value: http://localhost:8080
+        - name: HUGGINGFACE_TOKEN
+          value: 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
+        - name: PROFILE
+          value: prod
+      imagePullSecrets:
+        - name: myregistrykey
+
+
