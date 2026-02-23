@@ -1,4 +1,4 @@
-# DEPRECATED SEE -> https://github.com/just-rene/INSPECT-IA-PUBLIC
+# DEPRECATED, NEW: https://github.com/just-rene/INSPECT-IA-PUBLIC
 <br>
 <br>
 <br>
