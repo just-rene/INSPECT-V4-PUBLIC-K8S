@@ -1,3 +1,5 @@
+DEPRECATED SEE https://github.com/just-rene/INSPECT-IA-PUBLIC
+
 # INSPECT 
 INSPECT is a sentiment and NER extraction tool!
 
